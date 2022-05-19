@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.IllformedLocaleException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -21,12 +23,14 @@ public class AccountService {
         Account account = form.toEntity();
         accountRepository.save(account);
     }
-    public ResponseDto findById (Long id){
-        Account entity = AccountRepository.findById(id)
-                .orElseThrow(() -> new
-IllformedLocaleException("해당 ~가 없습니다. id=" + id));
-        return new ResponseDto(entity);
+    @Transactional(readOnly = true)
+    public List<ResponseDto> searchAllDesc() {
+        return accountRepository.findAllByOrderByIdDesc().stream()
+                .map(ResponseDto::new)
+                .collect(Collectors.toList());
     }
 
 
 }
+
+
