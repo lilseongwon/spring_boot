@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/login")
+@RequestMapping("/Sign")
 public class UserController {
 
     private final AccountService accountService;
@@ -26,5 +26,10 @@ public class UserController {
     @PostMapping
     public void createUser(@Valid @RequestBody AccountForm form) {
         accountService.createUser(form);
+    }
+
+    @PostMapping("/Login")
+    public void Login(@Valid @RequestBody AccountForm form){
+        accountService.Login(form);
     }
 }
