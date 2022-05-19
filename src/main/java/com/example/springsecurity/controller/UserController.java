@@ -27,5 +27,4 @@ public class UserController {
     public void createUser(@Valid @RequestBody AccountForm form) {
         accountService.createUser(form);
     }
-
 }

@@ -18,14 +18,4 @@ public class AccountForm {
     private String role;
     private Sex sex;
 
-    public Account toEntity() {
-        return Account.builder()
-                .username(username)
-                .password(password)
-                .email(email)
-                .age(age)
-                .role(role)
-                .sex(sex)
-                .build();
-    }
 }

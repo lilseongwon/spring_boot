@@ -20,16 +20,23 @@ public class AccountService {
 
     @Transactional
     public void createUser(AccountForm form) {
-        Account account = form.toEntity();
-        accountRepository.save(account);
+        accountRepository.save(
+            Account.builder()
+                    .username(form.getUsername())
+                    .password(form.getPassword())
+                    .email(form.getEmail())
+                    .age(form.getAge())
+                    .role(form.getRole())
+                    .sex(form.getSex())
+                    .build());
     }
+
     @Transactional(readOnly = true)
     public List<ResponseDto> searchAllDesc() {
         return accountRepository.findAllByOrderByIdDesc().stream()
                 .map(ResponseDto::new)
                 .collect(Collectors.toList());
     }
-
 
 }
 
