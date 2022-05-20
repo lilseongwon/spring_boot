@@ -29,7 +29,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void Login(@Valid @RequestBody LoginRequest loginrequest){
-        accountService.login(loginrequest);
+    public String Login(@Valid @RequestBody LoginRequest loginrequest){
+        return accountService.login(loginrequest);
     }
 }
+
+ /*   @GetMapping("/fighting")
+    public String ReturnJung(){
+        return helloService.ReturnJung();
+    }*/
