@@ -2,6 +2,7 @@ package com.example.springsecurity.controller;
 
 
 import com.example.springsecurity.dto.AccountForm;
+import com.example.springsecurity.dto.LoginRequest;
 import com.example.springsecurity.dto.ResponseDto;
 import com.example.springsecurity.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/Sign")
+@RequestMapping("/sign")
 public class UserController {
 
     private final AccountService accountService;
@@ -22,14 +23,13 @@ public class UserController {
         return accountService.searchAllDesc();
     }
 
-
     @PostMapping
     public void createUser(@Valid @RequestBody AccountForm form) {
         accountService.createUser(form);
     }
 
-    @PostMapping("/Login")
-    public void Login(@Valid @RequestBody AccountForm form){
-        accountService.Login(form);
+    @PostMapping("/login")
+    public void Login(@Valid @RequestBody LoginRequest loginrequest){
+        accountService.login(loginrequest);
     }
 }

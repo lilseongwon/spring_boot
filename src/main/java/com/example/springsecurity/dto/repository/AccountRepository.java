@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, Long> {
     List<Account> findAllByOrderByIdDesc();
 
-    Optional<Account> findByUsername
+    Optional<Account> findByUsername(String Username);
 
 
 }
