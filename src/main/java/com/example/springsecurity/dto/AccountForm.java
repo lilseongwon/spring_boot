@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountForm {
 
-    private String username;
-    private String password;
+    private String account_id;
     private String email;
-    private String age;
-    private String role;
+    private String password;
+    private String name;
+    private String student_id;
     private Sex sex;
 
 

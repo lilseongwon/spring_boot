@@ -18,20 +18,20 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
-    private String password;
+    private String account_id;
     private String email;
-    private String age;
-    private String role;
+    private String password;
+    private String name;
+    private String student_id;
     private Sex sex;
 
     @Builder
-    public Account(String username, String password, String email, String age, String role, Sex sex) {
-        this.username = username;
-        this.password = password;
+    public Account(String account_id, String email, String password, String name, String student_id, Sex sex) {
+        this.account_id = account_id;
         this.email = email;
-        this.age = age;
-        this.role = role;
+        this.password = password;
+        this.name = name;
+        this.student_id = student_id;
         this.sex = sex;
     }
 }
