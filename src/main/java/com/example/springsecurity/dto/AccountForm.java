@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class AccountForm {
 
     private String accountId;
-    private String email;
     private String password;
+    private String email;
     private String name;
     private String student_id;
     private Sex sex;

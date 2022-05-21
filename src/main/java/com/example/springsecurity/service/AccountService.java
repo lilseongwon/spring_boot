@@ -36,8 +36,8 @@ public class AccountService {
             accountRepository.save(
                     Account.builder()
                             .accountId(form.getAccountId())
-                            .email(form.getEmail())
                             .password(passwordEncoder.encode(form.getPassword()))
+                            .email(form.getEmail())
                             .name(form.getName())
                             .student_id(form.getStudent_id())
                             .sex(form.getSex())

@@ -19,17 +19,17 @@ public class Account {
     private Long id;
 
     private String accountId;
-    private String email;
     private String password;
+    private String email;
     private String name;
     private String student_id;
     private Sex sex;
 
     @Builder
-    public Account(String accountId, String email, String password, String name, String student_id, Sex sex) {
+    public Account(String accountId, String password, String email, String name, String student_id, Sex sex) {
         this.accountId = accountId;
-        this.email = email;
         this.password = password;
+        this.email = email;
         this.name = name;
         this.student_id = student_id;
         this.sex = sex;
