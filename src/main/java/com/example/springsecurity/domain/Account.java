@@ -18,7 +18,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String account_id;
+    private String accountId;
     private String email;
     private String password;
     private String name;
@@ -26,8 +26,8 @@ public class Account {
     private Sex sex;
 
     @Builder
-    public Account(String account_id, String email, String password, String name, String student_id, Sex sex) {
-        this.account_id = account_id;
+    public Account(String accountId, String email, String password, String name, String student_id, Sex sex) {
+        this.accountId = accountId;
         this.email = email;
         this.password = password;
         this.name = name;

@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class ResponseDto {
-    private String account_id;
+    private String accountId;
     private String email;
     private String password;
     private String name;
@@ -14,7 +14,7 @@ public class ResponseDto {
     private Sex sex;
 
     public ResponseDto(Account entity){
-        this.account_id = entity.getAccount_id();
+        this.accountId = entity.getAccountId();
         this.password = entity.getEmail();
         this.email = entity.getPassword();
         this.name = entity.getName();

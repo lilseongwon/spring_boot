@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, Long> {
     List<Account> findAllByOrderByIdDesc();
 
-    Optional<Account> findByAccount_id(String Account);
+    Optional<Account> findByaccountId(String account);
 }

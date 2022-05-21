@@ -30,12 +30,12 @@ public class AccountService {
 
     @Transactional
     public void createUser(AccountForm form) {
-        String account_id  = form.getAccount_id();
-        Optional<Account> account = accountRepository.findByAccount_id(account_id);
+        String accountId  = form.getAccountId();
+        Optional<Account> account = accountRepository.findByaccountId(accountId);
         if ( account.isEmpty() ) {
             accountRepository.save(
                     Account.builder()
-                            .account_id(form.getAccount_id())
+                            .accountId(form.getAccountId())
                             .email(form.getEmail())
                             .password(passwordEncoder.encode(form.getPassword()))
                             .name(form.getName())
@@ -55,7 +55,7 @@ public class AccountService {
     }
     @Transactional
     public String login(LoginRequest loginrequest) {
-        Account account = accountRepository.findByAccount_id(loginrequest.getAccount_id())
+        Account account = accountRepository.findByaccountId(loginrequest.getAccountId())
                 .orElseThrow(RuntimeException::new);
 
         if(account== null){
