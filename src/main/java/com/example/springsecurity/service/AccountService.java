@@ -7,15 +7,10 @@ import com.example.springsecurity.dto.LoginRequest;
 import com.example.springsecurity.dto.ResponseDto;
 import com.example.springsecurity.dto.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,9 +25,9 @@ public class AccountService {
 
     @Transactional
     public void createUser(AccountForm form) {
-        String accountId  = form.getAccountId();
-        Optional<Account> account = accountRepository.findByaccountId(accountId);
-        if ( account.isEmpty() ) {
+        String accountId = form.getAccountId();
+        Optional<Account> account = accountRepository.findByAccountId(accountId);
+        if (account.isEmpty()) {
             accountRepository.save(
                     Account.builder()
                             .accountId(form.getAccountId())
@@ -53,20 +48,24 @@ public class AccountService {
                 .map(ResponseDto::new)
                 .collect(Collectors.toList());
     }
+
     @Transactional
-    public String login(LoginRequest loginrequest) {
-        Account account = accountRepository.findByaccountId(loginrequest.getAccountId())
+    public String logIn(LoginRequest loginrequest) {
+        Account account = accountRepository.findByAccountId(loginrequest.getAccountId())
                 .orElseThrow(RuntimeException::new);
 
-        if(account== null){
-            return "id does not exist";
+        if (account == null) {
+            throw new AlreadyExistEmailException();
         }
-        if(passwordEncoder.matches(loginrequest.getPassword(), account.getPassword())) {
+
+        if (passwordEncoder.matches(loginrequest.getPassword(), account.getPassword())) {
             return "login succeeded";
         }
-        if(!passwordEncoder.matches(loginrequest.getPassword(), account.getPassword())) {
+
+        if (!passwordEncoder.matches(loginrequest.getPassword(), account.getPassword())) {
             return "password is not matched";
         }
+
         return "Hello";
     }
  /*   public void Login(AccountForm form) {

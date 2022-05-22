@@ -24,13 +24,13 @@ public class UserController {
     }
 
     @PostMapping
-    public void createUser(@Valid @RequestBody AccountForm form) {
+    public void createUser(@RequestBody AccountForm form) {
         accountService.createUser(form);
     }
 
     @PostMapping("/login")
-    public String Login(@Valid @RequestBody LoginRequest loginrequest){
-        return accountService.login(loginrequest);
+    public void Login(@Valid @RequestBody LoginRequest loginrequest){
+        accountService.logIn(loginrequest);
     }
 }
 
