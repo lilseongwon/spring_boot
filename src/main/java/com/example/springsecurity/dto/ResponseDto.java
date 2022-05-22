@@ -6,13 +6,12 @@ import lombok.Getter;
 
 @Getter
 public class ResponseDto {
-    private String accountId;
-    private String password;
-    private String email;
-    private String name;
-    private String student_id;
-    private Sex sex;
-    // todo 이거 바꾸셈
+    private final String accountId;
+    private final String password;
+    private final String email;
+    private final String name;
+    private final String student_id;
+    private final Sex sex;
 
     public ResponseDto(Account entity){
         this.accountId = entity.getAccountId();
