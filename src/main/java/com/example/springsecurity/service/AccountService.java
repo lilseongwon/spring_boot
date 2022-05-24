@@ -5,6 +5,7 @@ import com.example.springsecurity.domain.Account;
 import com.example.springsecurity.dto.AccountForm;
 import com.example.springsecurity.dto.LoginRequest;
 import com.example.springsecurity.dto.ResponseDto;
+import com.example.springsecurity.dto.UserListResponse;
 import com.example.springsecurity.dto.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +18,6 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-
 public class AccountService {
 
     private final PasswordEncoder passwordEncoder;
@@ -43,10 +43,24 @@ public class AccountService {
     }
 
     @Transactional(readOnly = true)
-    public List<ResponseDto> searchAllDesc() {
-        return accountRepository.findAllByOrderByIdDesc().stream()
-                .map(ResponseDto::new)
+    public UserListResponse searchAllDesc() {
+
+        List<ResponseDto> userList = accountRepository.findAllByOrderByIdDesc()
+                .stream()
+                .map(this::accountBuilder)
                 .collect(Collectors.toList());
+
+        return new UserListResponse(userList);
+    }
+    private ResponseDto accountBuilder(Account account) {
+        return ResponseDto.builder()
+                .accountId(account.getAccountId())
+                .password(account.getPassword())
+                .email(account.getEmail())
+                .name(account.getName())
+                .studentId(account.getStudent_id())
+                .sex(account.getSex())
+                .build();
     }
 
     @Transactional
@@ -68,15 +82,13 @@ public class AccountService {
 
         return "Hello";
     }
- /*   public void Login(AccountForm form) {
-        Optional<Account> account = accountRepository.findByUsername(form.getUsername());
-
-        if(!passwordEncoder.matches(form.getPassword(), account.getPassword())) {
-
-            throw Exception
-        }
-    } */
-
+    @Transactional
+    public void delete (Long id){
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new
+                        IllegalArgumentException("해당 계정이 없습니다. id=" + id));
+        accountRepository.delete(account);
+    }
 }
 
 
