@@ -33,8 +33,3 @@ public class UserController {
         accountService.logIn(loginrequest);
     }
 }
-
- /*   @GetMapping("/fighting")
-    public String ReturnJung(){
-        return helloService.ReturnJung();
-    }*/
