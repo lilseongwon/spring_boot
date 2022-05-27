@@ -34,4 +34,16 @@ public class Account {
         this.student_id = student_id;
         this.sex = sex;
     }
+
+    public void update(String accountId, String password, String email, String name, String student_id, Sex sex){
+        this.accountId = accountId;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.student_id = student_id;
+        this.sex = sex;
+    }
+
+
+
 }

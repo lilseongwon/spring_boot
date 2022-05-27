@@ -2,10 +2,8 @@ package com.example.springsecurity.service;
 
 import com.example.springsecurity.Exception.AlreadyExistEmailException;
 import com.example.springsecurity.domain.Account;
-import com.example.springsecurity.dto.AccountForm;
-import com.example.springsecurity.dto.LoginRequest;
-import com.example.springsecurity.dto.ResponseDto;
-import com.example.springsecurity.dto.UserListResponse;
+import com.example.springsecurity.domain.Sex;
+import com.example.springsecurity.dto.*;
 import com.example.springsecurity.dto.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,7 +53,6 @@ public class AccountService {
     private ResponseDto accountBuilder(Account account) {
         return ResponseDto.builder()
                 .accountId(account.getAccountId())
-                .password(account.getPassword())
                 .email(account.getEmail())
                 .name(account.getName())
                 .studentId(account.getStudent_id())
@@ -89,6 +86,17 @@ public class AccountService {
                         IllegalArgumentException("해당 계정이 없습니다. id=" + id));
         accountRepository.delete(account);
     }
+
+    @Transactional
+    public Long update(Long id, PostsUpdateRequestDto requestDto) {
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        account.update(requestDto.getAccountId(), requestDto.getPassword(), requestDto.getEmail(),
+                requestDto.getName(), requestDto.getStudent_id(), requestDto.getSex());
+
+        return id;
+    }
+
+
 }
-
-

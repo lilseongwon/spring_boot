@@ -8,7 +8,6 @@ import lombok.Getter;
 @Builder
 public class ResponseDto {
     private final String accountId;
-    private final String password;
     private final String email;
     private final String name;
     private final String studentId;
