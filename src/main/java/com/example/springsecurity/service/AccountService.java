@@ -92,11 +92,10 @@ public class AccountService {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
 
-        account.update(requestDto.getAccountId(), requestDto.getPassword(), requestDto.getEmail(),
+
+        account.update(requestDto.getAccountId(), passwordEncoder.encode(requestDto.getPassword()), requestDto.getEmail(),
                 requestDto.getName(), requestDto.getStudent_id(), requestDto.getSex());
 
         return id;
     }
-
-
 }
