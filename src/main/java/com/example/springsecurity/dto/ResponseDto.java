@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
+@Builder //이거 왜 빌더 들어감?
 public class ResponseDto {
     private final String accountId;
     private final String email;

@@ -10,13 +10,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class AccountForm {
-
     private String accountId;
     private String password;
     private String email;
     private String name;
     private String student_id;
     private Sex sex;
-
-
 }

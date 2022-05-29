@@ -1,5 +1,6 @@
 package com.example.springsecurity.dto;
 
+import com.example.springsecurity.domain.Account;
 import com.example.springsecurity.domain.Sex;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +24,6 @@ public class PostsUpdateRequestDto {
         this.name = name;
         this.student_id = student_id;
         this.sex = sex;
-
     }
 }
 
