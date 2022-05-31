@@ -24,7 +24,6 @@ public class UserController{
     public UserListResponse searchAllDesc(){
         return accountService.searchAllDesc();
     }
-
     @PostMapping("/sign-up")
     public void createUser(@RequestBody AccountForm form){
         accountService.createUser(form);

@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RequiredArgsConstructor
 @Service
 public class AccountService{
@@ -37,6 +39,10 @@ public class AccountService{
         }
         else
             throw new AlreadyExistEmailException();
+
+
+
+
     }
     @Transactional(readOnly = true)
     public UserListResponse searchAllDesc(){
