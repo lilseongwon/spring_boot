@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Getter
@@ -24,7 +23,7 @@ public class Account {
     String email;
     @Column(length = 50, nullable = false)
     String student_id;
-    @Column(length = 4, nullable = false)
+    @Column(length = 50, nullable = false)
     String name;
     @Column(length = 6, nullable = false)
     Sex sex;
