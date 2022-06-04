@@ -58,8 +58,8 @@ public class AccountService{
         return ResponseDto.builder()
                 .accountId(account.getAccountId())
                 .email(account.getEmail())
-                .name(account.getName())
                 .studentId(account.getStudent_id())
+                .name(account.getName())
                 .sex(account.getSex())
                 .build();
     }
@@ -79,7 +79,7 @@ public class AccountService{
     public void update(Long id, PostsUpdateRequestDto requestDto){
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 계정이 없습니다."));
-        account.update(requestDto.getAccountId(), requestDto.getPassword(), requestDto.getEmail(), requestDto.getStudent_id()
+        account.update(requestDto.getAccountId(), passwordEncoder.encode(requestDto.getPassword()), requestDto.getEmail(), requestDto.getStudent_id()
         , requestDto.getName(), requestDto.getSex());
 
     }

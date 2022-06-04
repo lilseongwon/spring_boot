@@ -4,7 +4,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Entity
@@ -13,7 +16,6 @@ public class Account extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(length = 255, nullable = false)
     String accountId;
 
@@ -43,7 +45,6 @@ public class Account extends BaseTimeEntity{
         this.password = password;
         this.email = email;
         this.student_id = student_id;
-        this.name = name;
         this.sex = sex;
     }
 }

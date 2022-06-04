@@ -9,8 +9,8 @@ import lombok.Getter;
 public class ResponseDto {
     private final String accountId;
     private final String email;
-    private final String name;
     private final String studentId;
+    private final String name;
     private final Sex sex;
 }
 
