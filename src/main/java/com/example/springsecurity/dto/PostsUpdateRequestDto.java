@@ -16,14 +16,6 @@ public class PostsUpdateRequestDto {
     private String student_id;
     private Sex sex;
 
-    @Builder
-    public PostsUpdateRequestDto(String accountId, String password, String email, String name, String student_id, Sex sex) {
-        this.accountId = accountId;
-        this.password =  password;
-        this.email = email;
-        this.name = name;
-        this.student_id = student_id;
-        this.sex = sex;
-    }
+
 }
 
