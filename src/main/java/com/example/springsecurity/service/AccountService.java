@@ -39,10 +39,6 @@ public class AccountService{
         }
         else
             throw new AlreadyExistEmailException();
-
-
-
-
     }
     @Transactional(readOnly = true)
     public UserListResponse searchAllDesc(){
