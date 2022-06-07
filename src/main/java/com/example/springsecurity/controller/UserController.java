@@ -20,6 +20,7 @@ import java.util.Optional;
 public class UserController{
     private final AccountService accountService;
 
+    @CrossOrigin("*")
     @GetMapping("/search")
     public UserListResponse searchAllDesc(){
         return accountService.searchAllDesc();
