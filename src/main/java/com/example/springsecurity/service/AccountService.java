@@ -27,10 +27,10 @@ public class AccountService{
         String accountId = form.getAccountId();
         Optional<Account> account = accountRepository.findByAccountId(accountId);
         if(account.isEmpty()){
-            accountRepository.save(
-                Account.builder()
+            accountRepository.save( //이거 자동으로 NULL값 확인하지 않음?
+                Account.builder() //빌더타입 더 공부하기
                         .accountId(form.getAccountId())
-                        .password(form.getPassword())
+                        .password(passwordEncoder.encode(form.getPassword()))
                         .email(form.getEmail())
                         .student_id(form.getStudent_id())
                         .name(form.getName())
@@ -38,10 +38,10 @@ public class AccountService{
                         .build());
         }
         else
-            throw new AlreadyExistEmailException();
+            throw new IllegalArgumentException();
     }
     @Transactional(readOnly = true)
-    public UserListResponse searchAllDesc(){
+    public UserListResponse searchAllDesc(){ //멘토에게 질문이 시급함
         List<ResponseDto> userList = accountRepository.findAllByOrderByIdDesc()
                 .stream()
                 .map(this::accountBuilder)
@@ -62,7 +62,7 @@ public class AccountService{
 
     @Transactional
     public String login(LoginRequest loginRequest){
-        Account account = accountRepository.findByAccountId(loginRequest.getAccountId())
+        Account account = accountRepository.findByAccountId(loginRequest.getAccountId()) //여기선 왜 optional 안됨?
                 .orElseThrow(RuntimeException::new);
         if(passwordEncoder.matches(loginRequest.getPassword(), account.getPassword()))
         return "login succeeded";
@@ -86,5 +86,4 @@ public class AccountService{
                 .orElseThrow(()-> new IllegalArgumentException("해당 계정이 없습니다."));
         accountRepository.delete(account);
     }
-
 }

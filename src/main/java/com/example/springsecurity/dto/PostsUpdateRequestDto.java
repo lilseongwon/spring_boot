@@ -16,6 +16,5 @@ public class PostsUpdateRequestDto {
     private String student_id;
     private Sex sex;
 
-
 }
 

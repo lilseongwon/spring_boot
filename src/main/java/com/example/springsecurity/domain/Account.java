@@ -12,13 +12,14 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NotNull
 public class Account extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(length = 255, nullable = false)
     String accountId;
-
     @Column(length = 64, nullable = false)
     String password;
     @Column(length = 60, nullable = false)
