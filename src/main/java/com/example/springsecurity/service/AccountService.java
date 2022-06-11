@@ -75,7 +75,7 @@ public class AccountService{
     public void update(Long id, PostsUpdateRequestDto requestDto){
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 계정이 없습니다."));
-        account.update(requestDto.getAccountId(), passwordEncoder.encode(requestDto.getPassword()), requestDto.getEmail(), requestDto.getStudent_id()
+        account.update(passwordEncoder.encode(requestDto.getPassword()), requestDto.getEmail(), requestDto.getStudent_id()
         , requestDto.getName(), requestDto.getSex());
 
     }

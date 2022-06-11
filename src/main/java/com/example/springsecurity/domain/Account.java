@@ -41,8 +41,7 @@ public class Account extends BaseTimeEntity{
         this.sex = sex;
     }
 
-    public void update(String accountId, String password, String email, String student_id, String name, Sex sex){
-        this.accountId = accountId;
+    public void update(String password, String email, String student_id, String name, Sex sex){
         this.password = password;
         this.email = email;
         this.student_id = student_id;
