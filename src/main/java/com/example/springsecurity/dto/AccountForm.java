@@ -7,10 +7,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @NoArgsConstructor
 public class AccountForm {
     private String accountId;
+    @NotNull
     private String password;
     private String email;
     private String name;

@@ -10,7 +10,7 @@ import lombok.Getter;
 @Builder
 public class CustomErrorResponse {
 
-    private final int status;
-    private final String message;
+    private final int status; //상태코드
+    private final String message; //메세지
 
 }

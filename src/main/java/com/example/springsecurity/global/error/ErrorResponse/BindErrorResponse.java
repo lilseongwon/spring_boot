@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class BindErrorResponse {
 
-    private final int status;
-    private final List<String> messages;
+    private final int status; //상태코드
+    private final List<String> messages; //메세지
 
 }

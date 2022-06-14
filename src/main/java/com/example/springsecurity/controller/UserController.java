@@ -1,18 +1,12 @@
 package com.example.springsecurity.controller;
 
 
-import com.example.springsecurity.Exception.AlreadyExistEmailException;
-import com.example.springsecurity.domain.Account;
 import com.example.springsecurity.dto.*;
-import com.example.springsecurity.dto.repository.AccountRepository;
 import com.example.springsecurity.service.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +21,7 @@ public class UserController{
     }
     @CrossOrigin("*")
     @PostMapping("/sign-up")
-    public void createUser(@RequestBody AccountForm form){
+    public void createUser(@RequestBody @Valid AccountForm form){
         accountService.createUser(form);
     }
     @PostMapping("/login")

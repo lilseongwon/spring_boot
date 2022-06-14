@@ -1,20 +1,21 @@
 package com.example.springsecurity.service;
 
-import com.example.springsecurity.Exception.AlreadyExistEmailException;
 import com.example.springsecurity.domain.Account;
 import com.example.springsecurity.dto.*;
 import com.example.springsecurity.dto.repository.AccountRepository;
+import com.example.springsecurity.exception.AlreadyExistEmailException;
+import com.example.springsecurity.exception.AuthNotFoundException;
+import com.example.springsecurity.exception.PasswordMismatchException;
+import com.example.springsecurity.global.error.CustomException;
+import com.example.springsecurity.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.spec.PSSParameterSpec;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RequiredArgsConstructor
 @Service
@@ -22,12 +23,13 @@ public class AccountService{
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
 
-    @Transactional
     public void createUser(AccountForm form){
         String accountId = form.getAccountId();
         Optional<Account> account = accountRepository.findByAccountId(accountId);
-        if(account.isEmpty()){
-            accountRepository.save( //이거 자동으로 NULL값 확인하지 않음?
+        if (account.isPresent())
+            throw AlreadyExistEmailException.EXCEPTION;
+
+        accountRepository.save( //이거 자동으로 NULL값 확인하지 않음?
                 Account.builder() //빌더타입 더 공부하기
                         .accountId(form.getAccountId())
                         .password(passwordEncoder.encode(form.getPassword()))
@@ -36,9 +38,7 @@ public class AccountService{
                         .name(form.getName())
                         .sex(form.getSex())
                         .build());
-        }
-        else
-            throw new IllegalArgumentException();
+
     }
     @Transactional(readOnly = true)
     public UserListResponse searchAllDesc(){ //멘토에게 질문이 시급함
@@ -63,18 +63,18 @@ public class AccountService{
     @Transactional
     public String login(LoginRequest loginRequest){
         Account account = accountRepository.findByAccountId(loginRequest.getAccountId()) //여기선 왜 optional 안됨?
-                .orElseThrow(RuntimeException::new);
-        if(passwordEncoder.matches(loginRequest.getPassword(), account.getPassword()))
-        return "login succeeded";
-
+                .orElseThrow(()-> AuthNotFoundException.EXCEPTION);
+        if(!passwordEncoder.matches(loginRequest.getPassword(), account.getPassword())){
+            throw PasswordMismatchException.EXCEPTION;
+        }
         else
-            return "password is not matched"; //else로 반환 수정
+            return "login succeeded";
     }
 
     @Transactional
     public void update(Long id, PostsUpdateRequestDto requestDto){
         Account account = accountRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 계정이 없습니다."));
+                .orElseThrow(() -> AuthNotFoundException.EXCEPTION);
         account.update(passwordEncoder.encode(requestDto.getPassword()), requestDto.getEmail(), requestDto.getStudent_id()
         , requestDto.getName(), requestDto.getSex());
 
@@ -83,7 +83,7 @@ public class AccountService{
     @Transactional
     public void delete(Long id){
         Account account = accountRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("해당 계정이 없습니다."));
+                .orElseThrow(() -> AuthNotFoundException.EXCEPTION);
         accountRepository.delete(account);
     }
 }

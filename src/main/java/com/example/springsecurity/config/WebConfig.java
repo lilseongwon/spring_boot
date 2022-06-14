@@ -14,6 +14,4 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
                     .allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT")
                     .allowedOrigins("http://localhost:9089");
         }
-
     }
-

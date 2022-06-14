@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@AllArgsConstructor //전부 생성하기 위함이 아닐까. 이걸 어떻게 빌더로 처리해...
+@JsonFormat(shape = JsonFormat.Shape.OBJECT) //serialize(직렬화 시) key=value 값으로 내려줌
 public enum ErrorCode {
 
     PASSWORD_MISMATCH(401, "Password MisMatch"),
@@ -28,7 +28,7 @@ public enum ErrorCode {
 
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
-    private final int status;
+    private final int status; //status랑 message
     private final String message;
 
 }
