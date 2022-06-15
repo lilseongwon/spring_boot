@@ -7,27 +7,28 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
 public class AccountForm {
-    @NotEmpty(message = "공백을 허용하지 않습니다.")
+    @NotBlank(message = "공백 포함 불가")
     private String accountId;
 
-    @NotEmpty(message = "공백을 허용하지 않습니다.")
+    @NotBlank(message = "공백 포함 불가")
     private String password;
 
-    @NotEmpty(message = "공백을 허용하지 않습니다.")
+    @Email(message = "이메일 형식에 맞춰주세요")
     private String email;
-
-    @NotEmpty(message = "공백을 허용하지 않습니다.")
+    
+    @NotBlank(message = "공백 포함 불가")
     private String name;
 
-    @NotEmpty(message = "공백을 허용하지 않습니다.")
+    @NotBlank(message = "공백 포함 불가")
     private String student_id;
 
-    @NotEmpty(message = "공백을 허용하지 않습니다.")
+    @NotBlank(message = "공백 포함 불가")
     private Sex sex;
 }
