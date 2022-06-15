@@ -14,21 +14,21 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 public class AccountForm {
-    @NotBlank(message = "공백 포함 불가")
+    @NotBlank(message = "ID는 빈 값일 수 없습니다")
     private String accountId;
 
-    @NotBlank(message = "공백 포함 불가")
+    @NotBlank(message = "비밀번호는 빈 값일 수 없습니다")
     private String password;
 
-    @Email(message = "이메일 형식에 맞춰주세요")
+    @NotBlank(message = "이메일은 빈 값일 수 없습니다")
+    @Email(message = "올바른 형식의 이메일 주소어야 합니다")
     private String email;
     
-    @NotBlank(message = "공백 포함 불가")
+    @NotBlank(message = "이름은 빈 값일 수 없습니다")
     private String name;
 
-    @NotBlank(message = "공백 포함 불가")
+    @NotBlank(message = "학번은 빈 값일 수 없습니다")
     private String student_id;
 
-    @NotBlank(message = "공백 포함 불가")
-    private Sex sex;
+    private Sex sex;  //Enum 검증하려면 커스텀 어노테이션 필요
 }
