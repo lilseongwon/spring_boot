@@ -11,6 +11,4 @@ public class rezeroApplication {
     public static void main(String[] args) {
         SpringApplication.run(rezeroApplication.class, args);
     }
-
-
 }

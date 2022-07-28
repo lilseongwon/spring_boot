@@ -13,6 +13,6 @@ import java.util.List;
 public class BindErrorResponse {
 
     private final int status; //상태코드
-    private final String messages; //메세지
+    private final List<String> messages; //메세지
 
 }

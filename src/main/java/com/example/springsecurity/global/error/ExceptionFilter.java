@@ -13,17 +13,18 @@ import java.io.IOException;
 @RequiredArgsConstructor
 //final을 위해 책정.
 public class ExceptionFilter extends OncePerRequestFilter {
-// 한 요청에 대해서 필터를 한번만 실행 시켜주고 , 필터를 적용 시켜줘
+    // 한 요청에 대해서 필터를 한번만 실행 시켜주고 , 필터를 적용 시켜줘
     private final ObjectMapper objectMapper;
-// ObjcetMapper -> Json 형식으로 받으려고 쓴다
+    // ObjcetMapper -> Json 형식으로 받으려고 쓴다
     @Override //http servlet 줌
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws IOException {
         try {
-            filterChain.doFilter(request, response); //필터체인 돌림
+            filterChain.doFilter(request, response); //필터체인 돌림, 근데 매개변수로  왜 얘네들 쓰는거임?
         } catch (CustomException e) { //unchecked 에러나옴 sendErrorMessage는 밑에 있음
             sendErrorMessage(response, e.getErrorCode()); //
         } catch (Exception e) {
+            logger.error(e);
             sendErrorMessage(response, ErrorCode.INTERNAL_SERVER_ERROR); //checked 에러
             //무슨 에러인지 몰라서 500으로 해놓는다.
         }
