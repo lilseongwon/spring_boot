@@ -3,6 +3,7 @@ package com.example.springsecurity.global.error;
 import com.example.springsecurity.global.error.ErrorResponse.CustomErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RequiredArgsConstructor
+@Component
 //final을 위해 책정.
 public class ExceptionFilter extends OncePerRequestFilter {
     // 한 요청에 대해서 필터를 한번만 실행 시켜주고 , 필터를 적용 시켜줘

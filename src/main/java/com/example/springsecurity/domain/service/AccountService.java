@@ -11,6 +11,7 @@ import com.example.springsecurity.domain.domain.repository.AccountRepository;
 import com.example.springsecurity.domain.exception.AlreadyExistEmailException;
 import com.example.springsecurity.domain.exception.AuthNotFoundException;
 import com.example.springsecurity.global.exception.PasswordMismatchException;
+import com.example.springsecurity.global.security.auth.AuthenticationFacade;
 import com.example.springsecurity.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +28,7 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final AuthenticationFacade authenticationFacade;
 
 
     public ResponseDto search(Long id) {
@@ -86,7 +88,7 @@ public class AccountService {
         Account account = accountRepository.findByAccountId(loginRequest.getAccountId())
                 .orElseThrow(() -> AuthNotFoundException.EXCEPTION);
 
-        if (!passwordEncoder.matches(loginRequest.getPassword(), loginRequest.getPassword())) {
+        if (!passwordEncoder.matches(loginRequest.getPassword(), account.getPassword())) {
             throw PasswordMismatchException.EXCEPTION;
         }
 
@@ -99,9 +101,8 @@ public class AccountService {
     }
 
     @Transactional
-    public void update(Long id, PostsUpdateRequestDto requestDto) {
-        Account account = accountRepository.findById(id)
-                .orElseThrow(() -> AuthNotFoundException.EXCEPTION);
+    public void update(PostsUpdateRequestDto requestDto) {
+        Account account = authenticationFacade.getCurrentUser();
         account.update(passwordEncoder.encode(requestDto.getPassword()), requestDto.getEmail(), requestDto.getStudent_id()
                 , requestDto.getName(), requestDto.getSex());
     }

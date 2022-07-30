@@ -8,6 +8,7 @@ import com.example.springsecurity.domain.controller.dto.request.AccountForm;
 import com.example.springsecurity.domain.controller.dto.request.LoginRequest;
 import com.example.springsecurity.domain.controller.dto.request.PostsUpdateRequestDto;
 import com.example.springsecurity.domain.service.AccountService;
+import com.example.springsecurity.domain.service.ReissueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController{
     private final AccountService accountService;
+    private final ReissueService reissueService;
 
     @GetMapping("search/{account-id}")
     public ResponseDto search(@PathVariable("account-id") Long id){
@@ -30,7 +32,7 @@ public class UserController{
         return accountService.searchAllDesc();
     }
     @CrossOrigin("*")
-    @PostMapping("/sign-up")
+    @PostMapping("/signup")
     public void createUser(@RequestBody @Valid AccountForm form){
         accountService.createUser(form);
     }
@@ -39,10 +41,14 @@ public class UserController{
     public TokenResponse login(@RequestBody LoginRequest loginRequest){
         return accountService.login(loginRequest);
     }
+    @PatchMapping("/token")
+    public TokenResponse reIssue(@RequestHeader("Refresh_Token") String refreshToken){
+        return reissueService.userReissue(refreshToken);
+    }
 
-    @PutMapping("/edit/{account-id}")
-    public void update(@PathVariable("account-id") Long id, @RequestBody PostsUpdateRequestDto updateRequestDto){
-        accountService.update(id, updateRequestDto);
+    @PutMapping("/editd")
+    public void update(@RequestBody PostsUpdateRequestDto updateRequestDto){
+        accountService.update(updateRequestDto);
     }
     @DeleteMapping("/delete/{account-id}")
     public void delete(@PathVariable("account-id") Long id){

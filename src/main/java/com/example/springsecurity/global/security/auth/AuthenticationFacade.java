@@ -4,20 +4,19 @@ import com.example.springsecurity.domain.domain.Account;
 import com.example.springsecurity.domain.domain.repository.AccountRepository;
 import com.example.springsecurity.domain.exception.AuthNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
+@Component
 public class AuthenticationFacade {
-
     private final AccountRepository accountRepository;
 
     public Account getCurrentUser() {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
 
-        return accountRepository.findByAccountId(authDetails.getUsername())
+        String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return accountRepository.findByAccountId(accountId)
                 .orElseThrow(() -> AuthNotFoundException.EXCEPTION);
     }
 }
