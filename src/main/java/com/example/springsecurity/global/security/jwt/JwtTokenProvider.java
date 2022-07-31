@@ -30,18 +30,18 @@ public class JwtTokenProvider {
     private static final String PREFIX = "Bearer ";
 
     private final RefreshTokenRepository refreshTokenRepository;
-    private final JwtProperty jwtProperty;
+    private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
 
     public TokenResponse generateTokens(String accountId) {
 
-        String accessToken = generateToken(accountId, ACCESS_KEY, jwtProperty.getAccessExp());
-        String refreshToken = generateToken(accountId, REFRESH_KEY, jwtProperty.getRefreshExp());
+        String accessToken = generateToken(accountId, ACCESS_KEY, jwtProperties.getAccessExp());
+        String refreshToken = generateToken(accountId, REFRESH_KEY, jwtProperties.getRefreshExp());
 
         refreshTokenRepository.save(RefreshToken.builder()
                 .accountId(accountId)
                 .token(refreshToken)
-                .ttl(jwtProperty.getRefreshExp())
+                .ttl(jwtProperties.getRefreshExp())
                 .build());
 
         return TokenResponse.builder()
@@ -52,7 +52,7 @@ public class JwtTokenProvider {
 
     private String generateToken(String accountId, String type, Long exp) {
         return Jwts.builder()
-                .signWith(SignatureAlgorithm.HS256, jwtProperty.getSecret())
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .setSubject(accountId)
                 .setHeaderParam("typ", type)
                 .setIssuedAt(new Date())
@@ -83,7 +83,7 @@ public class JwtTokenProvider {
 
     private Claims getTokenBody(String token) {
         try {
-            return Jwts.parser().setSigningKey(jwtProperty.getSecret())
+            return Jwts.parser().setSigningKey(jwtProperties.getSecret())
                     .parseClaimsJws(token).getBody();
         } catch (SignatureException e) {
             throw SignatureJwtException.EXCEPTION;
@@ -93,5 +93,4 @@ public class JwtTokenProvider {
             throw InvalidJwtException.EXCEPTION;
         }
     }
-
 }
