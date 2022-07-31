@@ -42,7 +42,7 @@ public class UserController{
         return accountService.login(loginRequest);
     }
     @PatchMapping("/token")
-    public TokenResponse reIssue(@RequestHeader("Refresh_Token") String refreshToken){
+    public TokenResponse reIssue(@RequestHeader(value = "refresh", required = false) String refreshToken){
         return reissueService.userReissue(refreshToken);
     }
 
